@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <title>Rock Paper Scissors</title>
 </head>
+
 <body>
-    
+    <div class="header-container">
+        <div class="header">
+            <h1>Rock, Paper, Scissors</h1>
+        </div>
+        <div class="scoreline">
+            <div class="player-score">
+                <h3>Player: <span> 0 | </span></h3>
+            </div>
+            <div class="computer-score">
+                <h3>0: <span> Computer </span></h3>
+            </div>
+        </div>
+    </div>
+    <div class="selected">
+        <div class="player-choice">
+            
+        </div>
+        <div class="computer-choice">
+            
+        </div>
+    </div>
+    <div class="result-message">
+        <p>Computer selected: </p>
+        <p>Player Selected: </p>
+        <h3>Player wins round</h3>
+    </div>
+    <div class="choices">
+            <button class="choice-btn" id="rock-btn"> <img src="images/rock.png" alt="Rock">
+            <button class="choice-btn" id="paper-btn"><img src="images/paper.png" alt="Paper">
+            <button class="choice-btn" id = "scissors-btn"><img src="images/scissors.png" alt="Scissors">
+    </div>
+
+<footer class="game-footer ">
+    Made in Pain by Ashley- Odin &COPY
+</footer>
+
     <script src="javascript/index.js"></script>
 </body>
+
 </html>
