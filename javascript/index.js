@@ -31,7 +31,7 @@ for (let i = 0; i < 5; i++) {
 
 }
 
-
+document.querySelector("#results").innerHTML = `Player: ${playerScore} | Computer: ${computerScore}` 
 
 console.log('Final Score: ', playerScore);
 console.log('Final Score: ', computerScore);
