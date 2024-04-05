@@ -29,21 +29,34 @@ scissorsButton.addEventListener("click", () => {
 })
 
 const playRound = (playerChoice, computerChoice) => {
-    // CHeck what has been picked and display a message
-    // let playerScore = 0;
-    // let computerScore = 0;
 
-    // while(playerScore <= 5 || computerScore <= 5){
+    const resultMessage = document.querySelector("#results-message");
+    const roundMessage = roundMessages(playerChoice, computerChoice);
+
     if (playerChoice === computerChoice) {
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `It is a tie`;
 
-        const playersChoices = document.querySelector(".choices-message")
-        console.log(playersChoices)
-        // Manipuate the dom and show on browser
-        // const computerChoiceText = document.querySelector("#computer-selection");
-        // const playerChoiceText = document.querySelector("#player-selection");
+    } else if (playerChoice === "rock" && computerChoice === "scissors" ||
+        playerChoice === "scissors" && computerChoice === "paper" ||
+        playerChoice === "paper" && computerChoice === "rock") {
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `You win!`;
 
-        // computerChoiceText.textContent = `Computer selected: ${computerChoice}`;
-        // playerChoiceText.textContent = `Player Selected: ${playerChoice}`;
-        // }
+        console.log(`player choice: ${playerChoice}, computer choice: ${computerChoice}`);
+    } else {
+        console.log(`player choice: ${playerChoice}, computer choice: ${computerChoice}`);
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `Computer Wins!`;
+
     }
+}
+
+const roundMessages = (playerChoice, computerChoice) => {
+    const playersChoices = document.querySelector("#choices-message");
+    playersChoices.textContent = "";
+    playersChoices.textContent = `You chose ${playerChoice} and computer chose ${computerChoice}`;
 }
