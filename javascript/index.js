@@ -1,37 +1,136 @@
-const choices = ['Rock', 'Paper', 'Scissors']
+const rockButton = document.querySelector("#rock-btn");
+const paperButton = document.querySelector("#paper-btn");
+const scissorsButton = document.querySelector("#scissors-btn");
 
 let playerScore = 0;
 let computerScore = 0;
+let gameEnded = false;
 
-// Declare an array choices to select our choices from.
-for (let i = 0; i < 5; i++) {
-    const playerChoice = prompt("This is a 'Rock', 'Paper', 'Scissors' game. Which do you choose? ").toLowerCase();
-    const computerChoice = choices[Math.floor(Math.random() * choices.length)].toLowerCase();
+rockButton.addEventListener("click", handleRockButtonClick());
+paperButton.addEventListener("click", handlePaperButtonClick());
+scissorsButton.addEventListener("click", handleScissorsButtonClick())
 
-    console.log('Player chose: ', playerChoice)
-    console.log('Computer chose', computerChoice)
+const handleRockButtonClick = () => {
+    const playerChoice = "rock";
+    const computerChoice = generateComputerChoice();
+    if (!gameEnded) {
+        playRound(playerChoice, computerChoice);
+    }
+}
 
+const handlePaperButtonClick = () => {
+    const playerChoice = "paper";
+    const computerChoice = generateComputerChoice();
+    if (!gameEnded){
+        playRound(playerChoice, computerChoice);
+    }
+}
 
+const handleScissorsButtonClick = () => {
+    const playerChoice = "scissors";
+    const computerChoice = generateComputerChoice()
+    if (!gameEnded) {
+    playRound(playerChoice, computerChoice);
+    }
+}
 
-    if (playerChoice === computerChoice) {
+const generateComputerChoice = () => {
+    const choices = ["rock", "paper", "scissors"];
+    return choices[Math.floor(Math.random() * choices.length)]
+}
 
-        console.log(`Player chose ${playerChoice} and Computer chose ${computerChoice}. it is a draw`)
-    } else if ((playerChoice === 'rock' && computerChoice === 'scissors') ||
-        (playerChoice === 'scissors' && computerChoice === 'paper') ||
-        (playerChoice === 'paper' && computerChoice === 'rock')) {
-        console.log(`Player choice is ${playerChoice} and Computer choice is ${computerChoice}. Player Wins`);
-        playerScore++;
-    } else {
-        console.log(`Computer choice is ${computerChoice} and Player choice is ${playerChoice}. Computer Wins`);
-        computerScore++
+const displayImage = (playerChoice, computerChoice) => {
+    const playerChoiceImg = document.querySelector(".player-choice-img");
+    const computerChoiceImg = document.querySelector(".computer-choice-img");
+    playerChoiceImg.textContent = "";
+    computerChoiceImg.textContent = "";
+
+    const createImage = (src) => {
+        const choiceImg = document.createElement("img");
+        choiceImg.src = src;
+        choiceImg.style.width = "140px";
+        choiceImg.style.height = "auto";
+        return choiceImg;
     }
 
-    console.log('Current Player Score: ', playerScore);
-    console.log('Current Computer Score: ', computerScore)
+    const playerImg = createImage(`images/${playerChoice}.png`);
+    playerChoiceImg.appendChild(playerImg);
 
+    const computerImg = createImage(`images/${computerChoice}.png`);
+    computerChoiceImg.appendChild(computerImg);
+}
+
+const displayScore = () => {
+    const totalPlayerScore = document.querySelector(".player-score");
+    const totalComputerScore = document.querySelector(".computer-score");
+
+
+    totalPlayerScore.textContent = "";
+    totalComputerScore.textContent = "";
+
+    const playerScoreDisplayed = document.createElement("h3");
+    playerScoreDisplayed.textContent = `Player: ${playerScore}`;
+
+    const computerScoreDisplayed = document.createElement("h3");
+    computerScoreDisplayed.textContent = `Computer: ${computerScore}`
+
+    totalPlayerScore.appendChild(playerScoreDisplayed);
+    totalComputerScore.appendChild(computerScoreDisplayed);
+}
+
+const roundMessages = (playerChoice, computerChoice) => {
+    const playersChoices = document.querySelector("#choices-message");
+    playersChoices.textContent = "";
+    playersChoices.textContent = `You chose ${playerChoice} and computer chose ${computerChoice}`;
 }
 
 document.querySelector("#results").innerHTML = `Player: ${playerScore} | Computer: ${computerScore}` 
 
-console.log('Final Score: ', playerScore);
-console.log('Final Score: ', computerScore);
+    const resultMessage = document.querySelector("#results-message");
+    const roundMessage = roundMessages(playerChoice, computerChoice);
+
+    if (playerChoice === computerChoice) {
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `It is a tie`;
+        displayImage(playerChoice, computerChoice);
+        displayScore();
+        checkWinner();
+    
+
+    } else if (playerChoice === "rock" && computerChoice === "scissors" ||
+        playerChoice === "scissors" && computerChoice === "paper" ||
+        playerChoice === "paper" && computerChoice === "rock") {
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `You win!`;
+        displayImage(playerChoice, computerChoice);
+        playerScore++;
+        displayScore();
+        checkWinner();
+    } else {
+        roundMessage;
+        resultMessage.textContent = "";
+        resultMessage.textContent = `Computer Wins!`;
+        displayImage(playerChoice, computerChoice);
+        computerScore++;
+        displayScore();
+        checkWinner()
+
+    }
+
+const checkWinner = () => {
+    if (playerScore === 5){
+        winnerMessage("Player");
+        gameEnded = true;
+
+    } else if (computerScore === 5) {
+        winnerMessage("Computer");
+        gameEnded = true;
+    }
+}
+
+const winnerMessage = (winner) => {
+    const  gameWon = document.querySelector("#choices-message");
+    gameWon.textContent = `${winner} scored 5 first. ${winner} wins!`;
+}

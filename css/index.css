@@ -1,0 +1,85 @@
+html,
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Header Section */
+.header-container,
+.scoreline{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-container { 
+    margin-top: 5px;
+    margin-right: 40px;
+    margin-left: 40px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 165, 0);
+}
+
+.header,
+.scoreline {
+    padding-left:10px;
+    padding-right: 10px;
+}
+
+.player-score,
+.computer-score {
+    margin: auto;
+}
+
+/* Choices section */
+.choices{
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    margin: 40px;
+    text-align: center;
+}
+
+.choice-btn img{
+    height: auto;
+    width: 140px;
+
+}
+
+.choice-btn{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.choice-btn:active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.selected{
+    height: 120px;
+    display: flex;
+    justify-content: center;
+}
+
+.result-message{
+    margin: auto;
+    bottom: 0;
+}
+
+
+.game-footer{
+    margin: auto;
+    width: 100%;
+    bottom: 0;
+    color: orange;
+    background-color: black;
+}
