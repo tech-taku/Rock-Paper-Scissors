@@ -2,8 +2,37 @@ const rockButton = document.querySelector("#rock-btn");
 const paperButton = document.querySelector("#paper-btn");
 const scissorsButton = document.querySelector("#scissors-btn");
 
+let playerScore = 0;
+let computerScore = 0;
+let gameEnded = false;
 
-// when we click button say rock playerChoice becomes rock then computer choice becomes abc randomly picked...
+rockButton.addEventListener("click", handleRockButtonClick());
+paperButton.addEventListener("click", handlePaperButtonClick());
+scissorsButton.addEventListener("click", handleScissorsButtonClick())
+
+const handleRockButtonClick = () => {
+    const playerChoice = "rock";
+    const computerChoice = generateComputerChoice();
+    if (!gameEnded) {
+        playRound(playerChoice, computerChoice);
+    }
+}
+
+const handlePaperButtonClick = () => {
+    const playerChoice = "paper";
+    const computerChoice = generateComputerChoice();
+    if (!gameEnded){
+        playRound(playerChoice, computerChoice);
+    }
+}
+
+const handleScissorsButtonClick = () => {
+    const playerChoice = "scissors";
+    const computerChoice = generateComputerChoice()
+    if (!gameEnded) {
+    playRound(playerChoice, computerChoice);
+    }
+}
 
 const generateComputerChoice = () => {
     const choices = ["rock", "paper", "scissors"];
@@ -13,10 +42,8 @@ const generateComputerChoice = () => {
 const displayImage = (playerChoice, computerChoice) => {
     const playerChoiceImg = document.querySelector(".player-choice-img");
     const computerChoiceImg = document.querySelector(".computer-choice-img");
-    // const choiceButton = document.createElement("button");
-
-    playerChoiceImg.innerHTML = "";
-    computerChoiceImg.innerHTML = "";
+    playerChoiceImg.textContent = "";
+    computerChoiceImg.textContent = "";
 
     const createImage = (src) => {
         const choiceImg = document.createElement("img");
@@ -33,6 +60,31 @@ const displayImage = (playerChoice, computerChoice) => {
     computerChoiceImg.appendChild(computerImg);
 }
 
+const displayScore = () => {
+    const totalPlayerScore = document.querySelector(".player-score");
+    const totalComputerScore = document.querySelector(".computer-score");
+
+
+    totalPlayerScore.textContent = "";
+    totalComputerScore.textContent = "";
+
+    const playerScoreDisplayed = document.createElement("h3");
+    playerScoreDisplayed.textContent = `Player: ${playerScore}`;
+
+    const computerScoreDisplayed = document.createElement("h3");
+    computerScoreDisplayed.textContent = `Computer: ${computerScore}`
+
+    totalPlayerScore.appendChild(playerScoreDisplayed);
+    totalComputerScore.appendChild(computerScoreDisplayed);
+}
+
+const roundMessages = (playerChoice, computerChoice) => {
+    const playersChoices = document.querySelector("#choices-message");
+    playersChoices.textContent = "";
+    playersChoices.textContent = `You chose ${playerChoice} and computer chose ${computerChoice}`;
+}
+
+
 const playRound = (playerChoice, computerChoice) => {
 
     const resultMessage = document.querySelector("#results-message");
@@ -43,6 +95,9 @@ const playRound = (playerChoice, computerChoice) => {
         resultMessage.textContent = "";
         resultMessage.textContent = `It is a tie`;
         displayImage(playerChoice, computerChoice);
+        displayScore();
+        checkWinner();
+    
 
     } else if (playerChoice === "rock" && computerChoice === "scissors" ||
         playerChoice === "scissors" && computerChoice === "paper" ||
@@ -51,38 +106,34 @@ const playRound = (playerChoice, computerChoice) => {
         resultMessage.textContent = "";
         resultMessage.textContent = `You win!`;
         displayImage(playerChoice, computerChoice);
-
-        console.log(`player choice: ${playerChoice}, computer choice: ${computerChoice}`);
+        playerScore++;
+        displayScore();
+        checkWinner();
     } else {
         console.log(`player choice: ${playerChoice}, computer choice: ${computerChoice}`);
         roundMessage;
         resultMessage.textContent = "";
         resultMessage.textContent = `Computer Wins!`;
-        displayImage(playerChoice, computerChoice)
+        displayImage(playerChoice, computerChoice);
+        computerScore++;
+        displayScore();
+        checkWinner()
 
     }
 }
 
-const roundMessages = (playerChoice, computerChoice) => {
-    const playersChoices = document.querySelector("#choices-message");
-    playersChoices.textContent = "";
-    playersChoices.textContent = `You chose ${playerChoice} and computer chose ${computerChoice}`;
+const checkWinner = () => {
+    if (playerScore === 5){
+        winnerMessage("Player");
+        gameEnded = true;
+
+    } else if (computerScore === 5) {
+        winnerMessage("Computer");
+        gameEnded = true;
+    }
 }
 
-rockButton.addEventListener("click", () => {
-    const playerChoice = "rock";
-    const computerChoice = generateComputerChoice();
-    playRound(playerChoice, computerChoice)
-})
-
-paperButton.addEventListener("click", () => {
-    const playerChoice = "paper";
-    const computerChoice = generateComputerChoice();
-    playRound(playerChoice, computerChoice)
-})
-
-scissorsButton.addEventListener("click", () => {
-    const playerChoice = "scissors";
-    const computerChoice = generateComputerChoice()
-    playRound(playerChoice, computerChoice)
-})
+const winnerMessage = (winner) => {
+    const  gameWon = document.querySelector("#choices-message");
+    gameWon.textContent = `${winner} scored 5 first. ${winner} wins!`;
+}
