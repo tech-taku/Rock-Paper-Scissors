@@ -46,6 +46,10 @@ body {
     display: flex;
     flex-direction: column;
 }
+.choices-container{
+    position: fixed;
+    margin-bottom: 8px;
+}
 .choices-text, .choices-message{
     margin: auto;
     text-align: center;
